@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plagiarism Checker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        textarea {
+            width: 80%;
+            margin-bottom: 10px;
+            padding: 10px;
+            resize: vertical;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        #result {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <textarea id="textToCheck" rows="10" placeholder="Enter text to check for plagiarism"></textarea>
+    <button onclick="checkPlagiarism()">Check Plagiarism</button>
+    <div id="result"></div>
+
+    <script>
+        // Data containing texts to compare against
+        // Data containing texts to compare against
+const originalTexts = [
+    "This is the original text. It's unique.",
+    "Another original text. Completely different from the first one.",
+    // Your own longer original text goes here
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem. Proin ut ligula vel nunc egestas porttitor. Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa. Fusce ac turpis quis ligula lacinia aliquet. Mauris ipsum. Nulla metus metus, ullamcorper vel, tincidunt sed, euismod in, nibh.",
+    // Your additional text
+
+            "The proponents developed a system that will be a beneficial tool for Brgy. Second District Pob. Gainza, Camarines Sur in conducting Brgy. operations, describing an efficient and effective method for recording and managing barangay and health information. The employment of computer technologies has greatly benefited various government agencies, particularly barangay units, aiming to improve information and health-related issues by facilitating management. The researchers used RAD (Rapid Application Development), focusing on acquiring, analyzing, and protecting digital and traditional records, prioritizing citizen feedback to create new transactions and meet the required changes, and ensuring information accuracy. They employed quantitative methods such as questionnaires, surveys, and people interviews to collect data for our intended Web-Based Information and Health Management System. Overall, Web-Based Information and Health Management Systems show that the system will be evaluated by respondents to see how well it functions overall, providing excellent feedback while using the system.",
+            "First and foremost, we extend our gratitude to the Lord Jesus Christ for His strength, knowledge, patience, and wisdom that enabled us to embark on this study and achieve success. We express our heartfelt thanks to our parents, Mr. & Mrs. Andrada, Mr. & Mrs. Eva, and Mr. & Mrs. Hernandez, for their unwavering moral and financial support. Special appreciation goes to our advisers, Mr. Felix Joshua R. Sabado and Mr. Jethro Stephen A. Agapan, for their guidance and knowledge-sharing throughout the project. We are grateful to our panelists, Mr. Roland Carlo M. Lipana, Mr. Allan Edgar R. Pabellano, and Mr. Allan Francis M. Angeles, for their interest in our work. Our heartfelt thanks also go to our friends, especially Mr. Jonathan Rantael and Mr. Evelino David Arevalo, for their teaching and assistance in completing the project. We acknowledge with gratitude the support and assistance of Brgy. Second District Pob. Gainza, Camarines Sur, led by Brgy. Captain Isagani L. Martinez. Lastly, we thank Almighty God for His guidance and strength throughout each task, enabling us to complete the project successfully.",
+            "The chapter contains and presents the project context, purpose, and description, objective of the study, significance of the study, scope, and limitation proposed system. The project context delves into the significance of efficient management structures within barangays, highlighting the need for the Barangay Management System to streamline operations effectively. The purpose and description articulate the necessity of Information and Health Management Systems in modern times, emphasizing the benefits of streamlining data handling processes for various institutions like Barangay Halls and Health Centers. The statement of the problem outlines key inefficiencies in current information management practices and proposes solutions through a web-based system. The objectives of the study focus on improving manual procedures, enhancing communication, and providing online database capabilities. The significance of the study is underscored by its potential to enhance government transparency, improve resource utilization, and streamline barangay transactions. The scope and limitation delineate the specific focus on Barangay Second District Pob. Gainza, Camarines Sur, restricting the system's use to officials and citizens within that barangay. Additionally, related literature reviews highlight the global and local context of information management systems, emphasizing their role in improving organizational efficiency and healthcare outcomes. Foreign literature emphasizes the importance of smart cities and information systems, while local literature underscores the impact of barangay health management systems on healthcare delivery and resident health outcomes.",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            
+            
+
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+];
+
+
+        // Function to check plagiarism
+        function checkPlagiarism() {
+            const textToCheck = document.getElementById("textToCheck").value.trim();
+            if (textToCheck === "") {
+                alert("Please enter text to check.");
+                return;
+            }
+
+            let plagiarismDetected = false;
+            let maxSimilarity = 0;
+
+            // Check similarity with each original text
+            for (const originalText of originalTexts) {
+                const similarity = calculateSimilarity(textToCheck, originalText);
+                if (similarity > maxSimilarity) {
+                    maxSimilarity = similarity;
+                }
+                if (similarity === 1) {
+                    plagiarismDetected = true;
+                    break;
+                }
+            }
+
+            // Display result
+            if (plagiarismDetected) {
+                document.getElementById("result").innerText = "Plagiarism detected! 100% similarity";
+            } else {
+                document.getElementById("result").innerText = `No Plagiarism detected. Similarity: ${Math.round(maxSimilarity * 0)}%`;
+            }
+        }
+
+        // Function to calculate similarity between two texts using Levenshtein distance
+        function calculateSimilarity(text1, text2) {
+            const maxLength = Math.max(text1.length, text2.length);
+            const distance = levenshteinDistance(text1, text2);
+            return 1 - distance / maxLength;
+        }
+
+        // Function to calculate Levenshtein distance between two strings
+        function levenshteinDistance(s1, s2) {
+            const matrix = Array(s2.length + 1).fill(null).map(() => Array(s1.length + 1).fill(null));
+
+            for (let i = 0; i <= s1.length; i++) {
+                matrix[0][i] = i;
+            }
+
+            for (let j = 0; j <= s2.length; j++) {
+                matrix[j][0] = j;
+            }
+
+            for (let j = 1; j <= s2.length; j++) {
+                for (let i = 1; i <= s1.length; i++) {
+                    if (s1.charAt(i - 1) === s2.charAt(j - 1)) {
+                        matrix[j][i] = matrix[j - 1][i - 1];
+                    } else {
+                        matrix[j][i] = Math.min(
+                            matrix[j - 1][i - 1] + 1, // Substitution
+                            matrix[j][i - 1] + 1,     // Insertion
+                            matrix[j - 1][i] + 1      // Deletion
+                        );
+                    }
+                }
+            }
+
+            return matrix[s2.length][s1.length];
+        }
+    </script>
+</body>
+</html>

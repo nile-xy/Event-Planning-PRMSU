@@ -1,0 +1,89 @@
+/* CSS styles for search engine interface */
+
+/* Centering the search engine interface */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Container for search engine elements */
+.container {
+    text-align: center;
+    margin-bottom: 50px; /* Add some margin at the bottom */
+}
+
+/* Basic styling for the search input and button */
+#searchInput {
+    padding: 10px;
+    margin-right: 8px;
+    border: 2px solid #007bff;
+    border-radius: 25px;
+    font-size: 16px;
+    width: 300px;
+}
+
+#searchInput:focus {
+    outline: none;
+    border-color: #0056b3;
+}
+
+#searchButton {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 25px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#searchButton:hover {
+    background-color: #0056b3;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for the search results */
+#searchResults {
+    position: fixed; /* Set position to fixed */
+    bottom: 0; /* Align to the bottom */
+    left: 50%; /* Align horizontally at the center */
+    transform: translateX(-50%); /* Adjust horizontally */
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 80%; /* Limit maximum width */
+    overflow-y: auto; /* Enable vertical scrolling if needed */
+}
+
+#searchResults p {
+    margin-bottom: 10px;
+    font-size: 14px; /* Adjust font size */
+    line-height: 1.6; /* Increase line height for readability */
+}
+
+#searchResults div {
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+#searchResults h3 {
+    margin-top: 0;
+    color: #007bff;
+    font-size: 18px; /* Adjust font size */
+}
+
+#searchResults h3:hover {
+    text-decoration: underline;
+}
+
+/* Styling for the match percentage */
+.matchPercentage {
+    color: red; /* Set the color to red */
+}
